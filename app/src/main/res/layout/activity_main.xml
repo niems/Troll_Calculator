@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#555555"
+    tools:context="com.example.niems.calculator.MainActivity">
+    <TextView
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:text=" "
+        android:padding="10dp"
+        android:background="#222222"
+        android:layout_gravity="center_horizontal"
+
+        />
+
+    <TextView
+        android:id="@+id/troll"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:layout_gravity="bottom"
+        android:padding="10dp"
+        android:textColor="#eeeeee"/>
+
+    <Button
+        android:id="@+id/execute_button"
+        android:onClick="troll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="#111111"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:text="@string/execute_button"/>
+
+
+</LinearLayout>
