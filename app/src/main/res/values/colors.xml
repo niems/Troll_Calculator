@@ -3,4 +3,8 @@
     <color name="colorPrimary">#222222</color>
     <color name="colorPrimaryDark">#46494c</color>
     <color name="colorAccent">#00ffff</color>
+
+    <color name="calcButtonBackground">#aaaaaa</color>
+    <color name="calcButtonText">#000000</color>
+
 </resources>
