@@ -49,17 +49,21 @@ public class Calculator extends AppCompatActivity {
                 this.s_current_num = b.getText().toString(); //overwrites the default display value
                 this.d_current_total = Double.parseDouble( this.s_current_num ); //overwrites default total
                 this.b_first_execution = false;
+
+                this.s_display_view = this.s_current_num; //current view to display to the screen
             }
 
             else { //program has been running and computations have been preformed
                 Toast.makeText(this, "number - combines string with current number displayed", Toast.LENGTH_SHORT).show();
 
                 this.s_current_num = this.s_current_num + b.getText().toString();
-                this.d_current_total = Double.parseDouble( this.s_current_num );
+                //this.d_current_total = Double.parseDouble( this.s_current_num );
+
+                this.s_display_view = Double.toString( this.d_current_total ) + " " + this.s_current_operator + " " + this.s_current_num;
             }
 
-
-            display_view.setText( Double.toString( this.d_current_total ) ); //current number is displayed on the main display view
+            display_view.setText( this.s_display_view ); //current view
+            //display_view.setText( Double.toString( this.d_current_total ) ); //current number is displayed on the main display view
 
 
         }catch(Exception e){
@@ -83,13 +87,13 @@ public class Calculator extends AppCompatActivity {
 
         try{
 
+            this.s_current_num = ""; //reset
+
             if( this.b_first_execution ){ //no commands have been executed
 
                 this.s_current_operator = b.getText().toString(); //sets the new operator
                 this.b_first_execution = false;
                 Toast.makeText(this, "operator - first execution", Toast.LENGTH_SHORT).show();
-
-
             }
 
             //there is no operator and the program has executed before
@@ -121,7 +125,7 @@ public class Calculator extends AppCompatActivity {
                 }
 
                 this.s_current_operator = b.getText().toString(); //sets new operator
-                this.s_current_num = ""; //reset
+
 
                 //this.s_display_view = Double.toString( this.d_current_total ) + " " + this.s_current_operator;
                // display_view.setText( this.s_display_view );
@@ -151,7 +155,9 @@ public class Calculator extends AppCompatActivity {
             this.s_current_num = Double.toString( this.d_current_total );
             this.b_first_execution = true;
 
-            display_view.setText( this.s_current_num );
+            this.s_display_view = this.s_current_num;
+
+            display_view.setText( this.s_display_view );
 
         }catch(Exception e){
             Toast.makeText(this, "An error occurred in clearTotal()", Toast.LENGTH_SHORT).show(); //displays error message to user
