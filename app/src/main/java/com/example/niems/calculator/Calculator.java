@@ -10,6 +10,7 @@ import android.widget.Toast;
 public class Calculator extends AppCompatActivity {
 
     private boolean b_first_execution; //true if this app was just opened and hasn't preformed any computations
+    private String s_display_view; //computation that's displayed in the view
     private String s_current_operator; //current operator
     private String s_current_num; //current number the user is inputting
     private double d_current_total; //running total
@@ -21,12 +22,13 @@ public class Calculator extends AppCompatActivity {
         this.s_current_operator = "";
         this.d_current_total = 0; //current valid number that could have been through multiple computations (running total)
         this.s_current_num = Double.toString( this.d_current_total ); //current number the user is entering
+        this.s_display_view = this.s_current_num; //display view default
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
 
         TextView display_view = (TextView) findViewById( R.id.display_view ); //gets the display view to modify
-        display_view.setText( this.s_current_num ); //current total displayed in view
+        display_view.setText( this.s_display_view ); //current total displayed in view
     }
 
     //when the user presses a number or the decimal point, it appears on the display view
@@ -81,11 +83,13 @@ public class Calculator extends AppCompatActivity {
 
         try{
 
-            if( this.b_first_execution == true ){ //no commands have been executed
+            if( this.b_first_execution ){ //no commands have been executed
 
                 this.s_current_operator = b.getText().toString(); //sets the new operator
                 this.b_first_execution = false;
                 Toast.makeText(this, "operator - first execution", Toast.LENGTH_SHORT).show();
+
+
             }
 
             //there is no operator and the program has executed before
@@ -119,8 +123,14 @@ public class Calculator extends AppCompatActivity {
                 this.s_current_operator = b.getText().toString(); //sets new operator
                 this.s_current_num = ""; //reset
 
-                display_view.setText( Double.toString( this.d_current_total ) );
+                //this.s_display_view = Double.toString( this.d_current_total ) + " " + this.s_current_operator;
+               // display_view.setText( this.s_display_view );
+
+                //display_view.setText( Double.toString( this.d_current_total ) );
             }
+
+            this.s_display_view = Double.toString( this.d_current_total ) + " " + this.s_current_operator;
+            display_view.setText( this.s_display_view );
 
         }catch(Exception e){
             Toast.makeText(this, "An error occurred in operatorClick()", Toast.LENGTH_SHORT).show(); //displays error message to user
