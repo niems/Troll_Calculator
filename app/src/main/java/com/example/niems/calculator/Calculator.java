@@ -9,19 +9,24 @@ import android.widget.Toast;
 
 public class Calculator extends AppCompatActivity {
 
-    private String current_operator; //current operator
-    private String current_num; //current number the user is inputting
-    private double current_computation; //running total
+    private boolean b_first_execution; //true if this app was just opened and hasn't preformed any computations
+    private String s_current_operator; //current operator
+    private String s_current_num; //current number the user is inputting
+    private double d_current_total; //running total
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        this.current_operator = "";
-        this.current_computation = 0;
-        this.current_num = "";
+        this.b_first_execution = true;
+        this.s_current_operator = "";
+        this.d_current_total = 0; //current valid number that could have been through multiple computations (running total)
+        this.s_current_num = Double.toString( this.d_current_total ); //current number the user is entering
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
+
+        TextView display_view = (TextView) findViewById( R.id.display_view ); //gets the display view to modify
+        display_view.setText( this.s_current_num ); //current total displayed in view
     }
 
     //when the user presses a number or the decimal point, it appears on the display view
@@ -31,82 +36,115 @@ public class Calculator extends AppCompatActivity {
             TextView display_view = (TextView) findViewById( R.id.display_view ); //gets the display view to modify
             Button b = (Button) findViewById( view.getId() ); //reads in the current user input
 
-            this.current_num = this.current_num + b.getText().toString();
-            display_view.setText( this.current_num ); //current number is displayed on the main display view
+            //Toast.makeText(this, "number - entered", Toast.LENGTH_SHORT).show();
+
+            //put check for if there is already a decimal here. If there is, the decimal key has no effect.
+
+            if( this.b_first_execution ) { //program just started
+
+                Toast.makeText(this, "number - first execution", Toast.LENGTH_SHORT).show();
+
+                this.s_current_num = b.getText().toString(); //overwrites the default display value
+                this.d_current_total = Double.parseDouble( this.s_current_num ); //overwrites default total
+                this.b_first_execution = false;
+            }
+
+            else { //program has been running and computations have been preformed
+                Toast.makeText(this, "number - combines string with current number displayed", Toast.LENGTH_SHORT).show();
+
+                this.s_current_num = this.s_current_num + b.getText().toString();
+                this.d_current_total = Double.parseDouble( this.s_current_num );
+            }
+
+
+            display_view.setText( Double.toString( this.d_current_total ) ); //current number is displayed on the main display view
 
 
         }catch(Exception e){
-            Toast.makeText(this, "An error has occurred", Toast.LENGTH_SHORT).show(); //displays error message to user
+            Toast.makeText(this, "An error has occurred in numberClick()", Toast.LENGTH_SHORT).show(); //displays error message to user
         }
     }
 
-    //user presses an operator button. The current number is saved as a double, and the current
-    //operator is switched
+    /*when the user presses an operator button(+,-,*,/) the current string number is combined
+    with the current total using the previous operator pressed if applicable. Otherwise,
+    the current string number is set to the current total. After this, the new operator
+    pressed overwrites the current operator.
+
+    *this.s_current_num needs to be cleared when an operator is pressed
+    *
+    */
     public void operatorClick( View view ){
+        TextView display_view = (TextView) findViewById( R.id.display_view ); //gets the display view to modify
+        Button b = (Button) findViewById( view.getId() ); //gets the id of the operator pressed
 
-        /*
+       // Toast.makeText(this, "operator - entered", Toast.LENGTH_SHORT).show();
+
         try{
-            TextView display_view = (TextView) findViewById( R.id.display_view ); //used to modify display view if valid number
-            Button operator_symbol = (Button) findViewById( view.getId() ); //gets id of the current operator
-            String result = "";
 
-            this.current_operator = operator_symbol.getText().toString(); //operator clicked is the new operator used
+            if( this.b_first_execution == true ){ //no commands have been executed
 
-            if( validNumber() ){ //if true, the number is valid and is stored
+                this.s_current_operator = b.getText().toString(); //sets the new operator
+                this.b_first_execution = false;
+                Toast.makeText(this, "operator - first execution", Toast.LENGTH_SHORT).show();
+            }
 
-                result = Double.toString( this.current_computation );
+            //there is no operator and the program has executed before
+            else if( this.s_current_operator.equals("") ){
+                Toast.makeText(this, "operator - new operator", Toast.LENGTH_SHORT).show();
+                this.s_current_operator = b.getText().toString(); //stores the new operator
+            }
 
-                switch( this.current_operator ){
+            else{
+                //sets new operator after doing computation
+                Toast.makeText(this, "operator - else statement", Toast.LENGTH_SHORT).show();
+
+                switch( this.s_current_operator ){
                     case "+":
-                        this.current_computation = this.current_computation + Double.parseDouble( this.current_num );
-                        result += " + ";
+                        this.d_current_total = this.d_current_total + Double.parseDouble( this.s_current_num );
                         break;
 
                     case "-":
-                        this.current_computation = this.current_computation - Double.parseDouble( this.current_num );
-                        result += " - ";
+                        this.d_current_total = this.d_current_total - Double.parseDouble( this.s_current_num );
                         break;
 
                     case "*":
-                        this.current_computation = this.current_computation * Double.parseDouble( this.current_num );
-                        result += " * ";
+                        this.d_current_total = this.d_current_total * Double.parseDouble( this.s_current_num );
                         break;
 
                     case "/":
-                        this.current_computation = this.current_computation / Double.parseDouble( this.current_num );
-                        result += " / ";
+                        this.d_current_total = this.d_current_total / Double.parseDouble( this.s_current_num );
                         break;
                 }
 
-                result += this.current_num;
+                this.s_current_operator = b.getText().toString(); //sets new operator
+                this.s_current_num = ""; //reset
 
-                //update textview here
-                display_view.setText( result );
+                display_view.setText( Double.toString( this.d_current_total ) );
             }
-
 
         }catch(Exception e){
-            e.printStackTrace();
+            Toast.makeText(this, "An error occurred in operatorClick()", Toast.LENGTH_SHORT).show(); //displays error message to user
         }
-        */
     }
 
-    public boolean validNumber(){ //returns true if the number is valid
-        boolean valid = true; //false if the current number is not valid
-        int decimal_occurrences = 0;
+    //clears the operator and the current total
+    public void clearTotal( View view ){
+        try{
 
-        for(int i = 0; i < this.current_num.length(); i++){ //loops through the whole string
+            Toast.makeText(this, "cleared display & values", Toast.LENGTH_SHORT).show();
 
-            if( this.current_num.charAt(i) == '.' ){
-                decimal_occurrences++;
+            TextView display_view = (TextView) findViewById( R.id.display_view );
 
-                if( decimal_occurrences > 1){ //number has too many decimals in it
-                    valid = false;
-                    break;
-                }
-            }
+            //resets all values
+            this.s_current_operator = "";
+            this.d_current_total = 0;
+            this.s_current_num = Double.toString( this.d_current_total );
+            this.b_first_execution = true;
+
+            display_view.setText( this.s_current_num );
+
+        }catch(Exception e){
+            Toast.makeText(this, "An error occurred in clearTotal()", Toast.LENGTH_SHORT).show(); //displays error message to user
         }
-
-        return valid;
     }
 }

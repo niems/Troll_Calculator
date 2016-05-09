@@ -79,7 +79,7 @@
     <Button
         android:id="@+id/clear"
         android:text="C"
-        android:onClick="numberClick"
+        android:onClick="clearTotal"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -292,7 +292,6 @@
     <Button
         android:id="@+id/button_equals"
         android:text="="
-        android:onClick="operatorClick"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
