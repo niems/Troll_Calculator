@@ -15,6 +15,10 @@ public class Calculator extends AppCompatActivity {
     private String s_current_num; //current number the user is inputting
     private double d_current_total; //running total
 
+    //new display
+    private String s_first_num;
+    private String s_second_num;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -22,7 +26,12 @@ public class Calculator extends AppCompatActivity {
         this.s_current_operator = "";
         this.d_current_total = 0; //current valid number that could have been through multiple computations (running total)
         this.s_current_num = Double.toString( this.d_current_total ); //current number the user is entering
-        this.s_display_view = this.s_current_num; //display view default
+        //this.s_display_view = this.s_current_num; //display view default
+
+        //new var
+        this.s_first_num = Double.toString( this.d_current_total );
+        this.s_second_num = ""; //not used until later
+        this.s_display_view = this.s_first_num; //display view default
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
@@ -31,8 +40,29 @@ public class Calculator extends AppCompatActivity {
         display_view.setText( this.s_display_view ); //current total displayed in view
     }
 
+    public void numberClick( View view ){
+        try{
+            TextView display_view = (TextView) findViewById( R.id.display_view ); //gets the display view to modify
+            Button b = (Button) findViewById( view.getId() ); //button the user pressed
+
+
+            if( !this.s_second_num.equals("") ){ //the second number is to be inputted
+
+            }
+
+            else{ //first number to be inputted
+
+            }
+
+        }catch(Exception e){
+            Toast.makeText(this, "An error has occurred in numberClick()", Toast.LENGTH_SHORT).show(); //displays error to user
+        }
+    }
+
+    /*
     //when the user presses a number or the decimal point, it appears on the display view
     public void numberClick( View view ){
+
 
         try{
             TextView display_view = (TextView) findViewById( R.id.display_view ); //gets the display view to modify
@@ -68,6 +98,7 @@ public class Calculator extends AppCompatActivity {
             Toast.makeText(this, "An error has occurred in numberClick()", Toast.LENGTH_SHORT).show(); //displays error message to user
         }
     }
+    */
 
     /*when the user presses an operator button(+,-,*,/) the current string number is combined
     with the current total using the previous operator pressed if applicable. Otherwise,
