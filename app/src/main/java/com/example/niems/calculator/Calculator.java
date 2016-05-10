@@ -38,8 +38,6 @@ public class Calculator extends AppCompatActivity {
             TextView display_view = (TextView) findViewById( R.id.display_view ); //gets the display view to modify
             Button b = (Button) findViewById( view.getId() ); //reads in the current user input
 
-            //Toast.makeText(this, "number - entered", Toast.LENGTH_SHORT).show();
-
             //put check for if there is already a decimal here. If there is, the decimal key has no effect.
 
             if( this.b_first_execution ) { //program just started
@@ -83,7 +81,6 @@ public class Calculator extends AppCompatActivity {
         TextView display_view = (TextView) findViewById( R.id.display_view ); //gets the display view to modify
         Button b = (Button) findViewById( view.getId() ); //gets the id of the operator pressed
 
-       // Toast.makeText(this, "operator - entered", Toast.LENGTH_SHORT).show();
 
         try{
 
