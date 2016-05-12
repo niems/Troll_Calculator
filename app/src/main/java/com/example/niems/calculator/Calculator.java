@@ -115,7 +115,7 @@ public class Calculator extends AppCompatActivity {
                         temp_total = Double.parseDouble( this.s_first_num ) - Double.parseDouble( this.s_second_num );
                         break;
 
-                    case "*":
+                    case "x":
                         temp_total = Double.parseDouble( this.s_first_num ) * Double.parseDouble( this.s_second_num );
                         break;
 

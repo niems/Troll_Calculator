@@ -10,10 +10,6 @@
     android:background="#444444"
     tools:context="com.example.niems.calculator.Calculator">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
     <TextView
         android:id="@+id/display_view"
         android:text="\n\n\n"
@@ -26,7 +22,6 @@
         android:background="#1985a1"
         android:textColor="#46494c"
         />
-    </LinearLayout>
 
     <!-- First Row -->
     <Button
@@ -36,6 +31,7 @@
 
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_below="@id/display_view"
 
         android:padding="5dp"
         android:textSize="20sp"
@@ -51,6 +47,7 @@
 
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_below="@id/display_view"
         android:layout_toRightOf="@id/button_7"
         android:layout_toEndOf="@id/button_7"
 
@@ -68,6 +65,7 @@
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/display_view"
         android:layout_toRightOf="@id/button_8"
         android:layout_toEndOf="@id/button_8"
 
@@ -85,6 +83,7 @@
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/display_view"
         android:layout_toRightOf="@id/button_9"
         android:layout_toEndOf="@id/button_9"
 
@@ -184,7 +183,7 @@
 
         android:background="@color/calcButtonBackground"
         android:textColor="@color/calcButtonText"
-    />
+        />
 
     <Button
         android:id="@+id/button_2"
@@ -219,7 +218,7 @@
         android:textSize="20sp"
         android:layout_margin="5dp"
 
-         android:background="@color/calcButtonBackground"
+        android:background="@color/calcButtonBackground"
         android:textColor="@color/calcButtonText"/>
 
     <Button
@@ -293,6 +292,7 @@
     <Button
         android:id="@+id/button_equals"
         android:text="="
+        android:onClick="equalsOperator"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,6 +32,33 @@ public class MainActivity extends AppCompatActivity {
         troll_view.setText( this.troll_current_message );
 
 
+    }
+
+    protected void onStart(){
+        super.onStart();
+        Toast.makeText(this, "Main - started", Toast.LENGTH_SHORT).show();
+    }
+
+    protected void onRestart(){
+        super.onRestart();
+
+        this.troll_current_message = "Do not press";
+        this.troll_num = 0;
+
+        TextView display_view = (TextView) findViewById( R.id.troll );
+        display_view.setText( this.troll_current_message );
+
+        Toast.makeText(this, "Main - restarted", Toast.LENGTH_SHORT).show();
+    }
+
+    protected void onPause(){
+        super.onPause();
+        Toast.makeText(this, "Main - paused", Toast.LENGTH_SHORT).show();
+    }
+
+    protected void onResume(){
+        super.onResume();
+        Toast.makeText(this, "Main - resume", Toast.LENGTH_SHORT).show();
     }
 
     public void troll(View view){
