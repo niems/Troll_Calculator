@@ -48,17 +48,27 @@ public class MainActivity extends AppCompatActivity {
         TextView display_view = (TextView) findViewById( R.id.troll );
         display_view.setText( this.troll_current_message );
 
-        Toast.makeText(this, "Main - restarted", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Main - activity restarted", Toast.LENGTH_SHORT).show();
     }
 
     protected void onPause(){
         super.onPause();
-        Toast.makeText(this, "Main - paused", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Main - activity paused", Toast.LENGTH_SHORT).show();
     }
 
     protected void onResume(){
         super.onResume();
-        Toast.makeText(this, "Main - resume", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Main - activity resumed", Toast.LENGTH_SHORT).show();
+    }
+
+    protected void onStop(){
+        super.onStop();
+        Toast.makeText(this, "Main - activity stopped", Toast.LENGTH_SHORT).show();
+    }
+
+    protected void onDestroy() {
+        super.onDestroy();
+        Toast.makeText(this, "Main - activity destroyed", Toast.LENGTH_SHORT).show();
     }
 
     public void troll(View view){

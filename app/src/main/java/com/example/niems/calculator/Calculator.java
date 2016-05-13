@@ -138,6 +138,44 @@ public class Calculator extends AppCompatActivity {
         }
     }
 
+    public void equalsOperator( View view ){ //user pressed '=' button
+
+        if( !this.s_second_num.equals("#") && this.s_second_num.length() > 0 ){
+
+            try{
+                TextView display_view = (TextView) findViewById( R.id.display_view );
+                double temp_total = 0;
+
+                switch( this.s_current_operator ){
+                    case "+":
+                        temp_total = Double.parseDouble( this.s_first_num ) + Double.parseDouble( this.s_second_num );
+                        break;
+
+                    case "-":
+                        temp_total = Double.parseDouble( this.s_first_num ) - Double.parseDouble( this.s_second_num );
+                        break;
+
+                    case "x":
+                        temp_total = Double.parseDouble( this.s_first_num ) * Double.parseDouble( this.s_second_num );
+                        break;
+
+                    case "/":
+                        temp_total = Double.parseDouble( this.s_first_num ) / Double.parseDouble( this.s_second_num );
+                        break;
+                }
+
+                this.s_second_num = ""; //reset
+                this.s_current_operator = ""; //reset
+
+                this.s_first_num = Double.toString( temp_total );
+                display_view.setText( this.s_first_num );
+
+            }catch(Exception e){
+                Toast.makeText( this, "Equals Operator - Error", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     //clears the operator and the current total
     public void clearTotal( View view ){
         try{
